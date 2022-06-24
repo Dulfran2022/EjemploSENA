@@ -1,0 +1,39 @@
+/*
+MySQL Backup
+Database: dbs_datos
+Backup Time: 2022-06-23 19:14:34
+*/
+
+SET FOREIGN_KEY_CHECKS=0;
+DROP TABLE IF EXISTS `dbs_datos`.`tbl_informacion`;
+DROP TABLE IF EXISTS `dbs_datos`.`tbl_programar`;
+CREATE TABLE `tbl_informacion` (
+  `pkid` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(80) NOT NULL,
+  `contacto` varchar(10) NOT NULL,
+  `correo` varchar(50) NOT NULL,
+  `estado` varchar(11) DEFAULT NULL,
+  PRIMARY KEY (`pkid`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+CREATE TABLE `tbl_programar` (
+  `pknumero` int(11) NOT NULL AUTO_INCREMENT,
+  `paciente` varchar(50) NOT NULL,
+  `veterinario` varchar(20) NOT NULL,
+  `fecha` varchar(255) DEFAULT NULL,
+  `id_registro` int(11) DEFAULT NULL,
+  PRIMARY KEY (`pknumero`),
+  KEY `id_registro` (`id_registro`),
+  CONSTRAINT `id_registro` FOREIGN KEY (`id_registro`) REFERENCES `tbl_informacion` (`pkid`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+BEGIN;
+LOCK TABLES `dbs_datos`.`tbl_informacion` WRITE;
+DELETE FROM `dbs_datos`.`tbl_informacion`;
+INSERT INTO `dbs_datos`.`tbl_informacion` (`pkid`,`nombre`,`contacto`,`correo`,`estado`) VALUES (1, 'Dulmmm', '31269', 'pepito@gmail', 'inactivo');
+UNLOCK TABLES;
+COMMIT;
+BEGIN;
+LOCK TABLES `dbs_datos`.`tbl_programar` WRITE;
+DELETE FROM `dbs_datos`.`tbl_programar`;
+INSERT INTO `dbs_datos`.`tbl_programar` (`pknumero`,`paciente`,`veterinario`,`fecha`,`id_registro`) VALUES (1, 'Pepit', '123', '123', NULL);
+UNLOCK TABLES;
+COMMIT;
